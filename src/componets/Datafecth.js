@@ -13,6 +13,7 @@ export default class Datafecth extends Component {
   }
   
   handlebtn=()=>{
+  
   axios.get('http://127.0.0.1:8000/api/post').then((res)=>{
       res.json();
     }).then((res)=>{
