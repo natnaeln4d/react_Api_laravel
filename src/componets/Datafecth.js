@@ -1,101 +1,62 @@
-import { data } from 'autoprefixer';
-import axios from 'axios'
+import axios from 'axios';
 import React, { Component } from 'react'
 
 export default class Datafecth extends Component {
-
-      constructor(...args) {
-        super(...args);
-        this.state = {data: null};
-    }
-    componentDidMount() {
-        if (!this.state.data) {
-            (async () => {
-                try {
-                    this.setState({data: await this.getData()});
-                } catch (e) {
-                    //...handle the error...
-                }
-            })();
-        }
-    }
-  getapi =async() =>{
-    try{
-        const response= await fetch('http://127.0.0.1:8000/api/post')
-       
-        if (!response.ok) {
-            throw new Error(`Error! status: ${response.status}`);
-          }
-      
-          return await response.json();
-
-          
-    }
-    catch(error){
-        console.log(error.message)
+  constructor(props) {
+    super(props)
+     this.handlebtn=this.handlebtn.bind(this);
+    this.state = {
+       error:null,
+       IsLoaded:false,
+       items:[],
     }
   }
-    // }
-    // //   axios.get('http://127.0.0.1:8000/api/post').then(
-    // //       (response)=>{
   
-    // //       response.json()
-    // //       }
-    // //   ).then(
-    // //     (res)=>{
-    // //       this.setState({
-    // //         isLoaded:true,
-    // //         data:res.items
-    // //       },  
-    // //       (error)=>{
-    // //        this.setState({
-    // //         isLoaded:true,
-    // //         error
-    // //        })
-  
-    // //       })
-        
-    // //     }
-    // //   )
-    //   if(this.error){
-    //     return(
-    //         <did>Error:{this.error.message}</did>
-    //     )
-    // }
-    //     else if(!this.Isloaded){
-    //         return <did>
-    //      loading....
-    //         </did>
-  
-    //     }
-    //     else{
-    //       return (
-    //         <div>
-    //             {
-    //                 this.items.map((item)=> (
-    //                         <div>{item}</div>
-    //                     )
-                    
-                    
-    //                 )
-    //             }
-              
-    //         </div>
-    //       )
-    //     }
-  
-    //   }
-    // render() {
-    //   return (
-    //     <div><button class="shadow  bg-teal-500 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"  onClick={this.getapi}>click</button></div>
-    //   )
-    // }
-   
-    render(){
-        return (
-            <div>
-                {this.state.data ? <em>Loading...</em> : this.state.data}
-            </div>
-        );
+  handlebtn=()=>{
+  axios.get('http://127.0.0.1:8000/api/post').then((res)=>{
+      res.json();
+    }).then((res)=>{
+      this.setState({
+        IsLoaded:true,
+        items:res.data
+      },(error)=>{
+        this.setState({
+          IsLoaded:false,
+          error
+        })
+      })
+    })
+    if(this.state.error){
+     return(
+      <did>Error:{this.error.message}</did>
+     )
     }
+    else if(!this.state.IsLoaded){
+      return(
+        <did>Loading....</did>
+      )
+  }
+  else{
+    return(
+    <div>
+      {
+        this.state.items.map(items=>{
+          <div><ul>
+            <li>{items.title}</li>
+            <li>{items.discription}</li></ul></div>
+        })
+      }
+    </div>
+    )
+
+  }
+}
+  
+  render() {
+    return (
+      <div>
+        <button className="shadow  bg-teal-500 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 roundeds" onSubmit={this.handlebtn}>click To Data</button>
+      </div>
+    )
+  }
 }
