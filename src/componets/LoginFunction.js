@@ -11,7 +11,7 @@ export default function LoginFunction() {
         error_list:'',
     })
     const http=axios.create({
-        baseURL:'http://api.my-app.test',
+        baseURL:'http://127.0.0.1:8000/api/auth/register',
         headers:{
             'X-Requested-with':'XMLHttpRequest',
         },
