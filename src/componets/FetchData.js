@@ -21,6 +21,12 @@ export default class FetchData extends Component {
             status:response.data.status,
             isLoaded:true
           })
+        }).catch((error)=>{
+        this.setState({
+          isLoaded:false,
+        
+          error
+        })
         })
 
         // .then(

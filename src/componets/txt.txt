@@ -1,0 +1,200 @@
+
+      constructor(...args) {
+        super(...args);
+        this.state = {data: null};
+    }
+    componentDidMount() {
+        if (!this.state.data) {
+            (async () => {
+                try {
+                    this.setState({data: await this.getData()});
+                } catch (e) {
+                    //...handle the error...
+                }
+            })();
+        }
+    }
+  getapi =async() =>{
+    try{
+        const response= await fetch('http://127.0.0.1:8000/api/post')
+       
+        if (!response.ok) {
+            throw new Error(`Error! status: ${response.status}`);
+          }
+      
+          return await response.json();
+
+          
+    }
+    catch(error){
+        console.log(error.message)
+    }
+  }
+    // }
+    // //   axios.get('http://127.0.0.1:8000/api/post').then(
+    // //       (response)=>{
+  
+    // //       response.json()
+    // //       }
+    // //   ).then(
+    // //     (res)=>{
+    // //       this.setState({
+    // //         isLoaded:true,
+    // //         data:res.items
+    // //       },  
+    // //       (error)=>{
+    // //        this.setState({
+    // //         isLoaded:true,
+    // //         error
+    // //        })
+  
+    // //       })
+        
+    // //     }
+    // //   )
+    //   if(this.error){
+    //     return(
+    //         <did>Error:{this.error.message}</did>
+    //     )
+    // }
+    //     else if(!this.Isloaded){
+    //         return <did>
+    //      loading....
+    //         </did>
+  
+    //     }
+    //     else{
+    //       return (
+    //         <div>
+    //             {
+    //                 this.items.map((item)=> (
+    //                         <div>{item}</div>
+    //                     )
+                    
+                    
+    //                 )
+    //             }
+              
+    //         </div>
+    //       )
+    //     }
+  
+    //   }
+    // render() {
+    //   return (
+    //     <div><button class="shadow  bg-teal-500 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"  onClick={this.getapi}>click</button></div>
+    //   )
+    // }
+   
+    render(){
+        return (
+            <div>
+                {this.state.data ? <em>Loading...</em> : this.state.data}
+            </div>
+        );
+    }
+     const handleSubmit = (e) => {
+    console.log("send some data");
+    e.preventDefault();
+    axios
+      .post("/api/login", {
+        email: email,
+        password: password,
+      })
+      .then(function (response) {
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("auth", response.data.auth);
+        console.log(localStorage.getItem("auth") + "nati");
+
+        Navigate(localStorage.getItem("auth") ? "/setprofile" : "/login");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  ////
+  login
+
+import React,{useState,useContext} from 'react';
+import axios from 'axios';
+import {MdLock} from 'react-icons/md';
+import { Link,useNavigate } from 'react-router-dom';
+
+export default function LoginHooks(){
+    const CatagoryContext = React.createContext();
+    const { authenticate,dispatchauth,auth } = useContext(CatagoryContext);
+    const [email,setEmail] = useState('');
+    const [password,setPassword] = useState('');
+    const navigate = useNavigate();
+    const token = localStorage.getItem('token');
+
+    const http = axios.create({
+        'baseURL': 'http://127.0.0.1:8000/api',
+          withCredentials: true,
+          'Authorization': `Bearer ${token}`,
+    });
+
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value);
+    }
+
+    const handlePasswordChange = (e) => {
+        setPassword(e.target.value);
+    }
+
+    const sendData = async(data) => {
+        const res = await http.post("api/auth/login",data);
+        dispatchauth({type: 'LOG'})
+         navigate("/");
+        const token = res.data.token;
+        localStorage.setItem('token',token);
+        localStorage.setItem('user',JSON.stringify(res.data.user));
+        
+    }
+
+    const handleSubmit = (e) => {
+
+        e.preventDefault();
+
+        let data = {email: email,password: password}
+         
+        sendData(data)
+    }
+    return (
+        <div className='container'>
+      
+  
+          <div className='field_container'>
+              <div className='inner_field'>
+                  
+                  <form onSubmit={handleSubmit} className = 'login_form'>
+                      <div className='input_field'>
+  
+                          <div className='wrapper'>
+                              <input type='text' value = {email} onChange = {handleEmailChange} placeholder = "Email" />
+                              <div className='icon bg_green'>
+                                  <MdLock className='item' />
+                              </div>
+                          </div>
+  
+                          <div className='wrapper'>
+                             <input type='password' value={password} onChange = {handlePasswordChange} placeholder = "Password"/>   
+                             <div className='icon bg_yellow'>
+                                  <MdLock className='item' />
+                              </div> 
+                          </div>
+                      </div>
+                      <div className='action'>
+  
+                          <Link to='/register'>Register</Link>
+                          <button className='button'>Sign In</button>
+                      </div>
+                  </form>
+  
+              </div>
+          </div>
+      </div>
+    );
+
+}
