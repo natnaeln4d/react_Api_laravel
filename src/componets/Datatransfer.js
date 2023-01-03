@@ -28,7 +28,7 @@ export default class Datatransfer extends Component {
                     const response= await axios.post('http://127.0.0.1:8000/api/post',{title: this.state.title,
                     discription: this.state.discription})
                     if(!response.ok){
-
+                    
                     }
                 }
                 catch(error){
