@@ -11,29 +11,33 @@ import CatagoryContext from './context/CatagoryContext'
 import ArticleReducer from './Reducer/ArticleRecucer'
 import CatagoryReducer from './Reducer/CatagoryReducer'
 import AuthReducer from './Reducer/AuthReducer'
+import Users from './Users'
+import RegsterHook from './RegsterHook'
 
 
 
 export default function TheApp() {
-  const [auth,setAuth] = useState(false);
-   const [isLoading,setIsloading] = useState(true);
-   const [state,dispatch] = useReducer(ArticleReducer,[]);
-   const [catagory,dispatchCatagory] = useReducer(CatagoryReducer,[]);
-   const [authenticate,dispatchauth] = useReducer(AuthReducer,{auth: auth});
+  // const [auth,setAuth] = useState(false);
+  //  const [isLoading,setIsloading] = useState(true);
+  //  const [state,dispatch] = useReducer(ArticleReducer,[]);
+  //  const [catagory,dispatchCatagory] = useReducer(CatagoryReducer,[]);
+  //  const [authenticate,dispatchauth] = useReducer(AuthReducer,{auth: auth});
   return (
     <div>
     <NarBar />
-    <Datatransfer />
-    <HooksDatafecth />
-    <CatagoryContext.Provider 
+    <RegsterHook />
+    {/* <Datatransfer />
+    <HooksDatafecth /> */}
+    {/* <CatagoryContext.Provider 
        value = {
           {
              catagory,dispatchCatagory,authenticate,dispatchauth,auth
           }
        }
        >
-         <LoginHooks />
-       </CatagoryContext.Provider>
+         {/* <LoginHooks /> */}
+       {/* </CatagoryContext.Provider> */} 
+       {/* <Users /> */}
    
     {/* <Datafecth /> */}
     {/* <FetchData /> */}
