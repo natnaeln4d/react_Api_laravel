@@ -8,7 +8,7 @@ export default function RegsterHook() {
     const [name,setName]=useState('')
     const [email,setEmail]=useState('')
     const [password,setPassword]=useState('')
-    const [confrimPassword,setConfrimpassword]=useState('')
+    // const [confrimPassword,setConfrimpassword]=useState('')
 
     
 
@@ -23,10 +23,7 @@ export default function RegsterHook() {
         setPassword(e.target.value)
 
     }
-    const handlecomfrimpasswordChange=(e)=>{
-        setConfrimpassword(e.target.value)
-
-    }
+  
     const handleSubmit=async()=>{
        try{
         const response=await axios.post('http://127.0.0.1:8000/api/auth/register',{
@@ -34,11 +31,15 @@ export default function RegsterHook() {
             email:email,
             password:password,
 
-        });
-        if(!response.ok){
-            console.log(response.status);
+        }).then((response)=>{
+         response.json()
+            console.log(response);
+
         }
-       
+            
+        );
+           
+        
 
        }catch(error){
         console.log(error)
