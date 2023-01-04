@@ -1,7 +1,7 @@
 const CatagoryReducer = (state,action) => {
     switch(action.type){
           case 'GET':
-              return action.data.data
+              return action.data
     }
 }
 
