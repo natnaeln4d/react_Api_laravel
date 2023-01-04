@@ -25,7 +25,8 @@ export default function TheApp() {
   return (
     <div>
     <NarBar />
-    <RegsterHook />
+    {/* <RegsterHook /> */}
+    <LoginHooks />
     {/* <Datatransfer />
     <HooksDatafecth /> */}
     {/* <CatagoryContext.Provider 
@@ -35,7 +36,7 @@ export default function TheApp() {
           }
        }
        >
-         {/* <LoginHooks /> */}
+         {/*  */}
        {/* </CatagoryContext.Provider> */} 
        {/* <Users /> */}
    

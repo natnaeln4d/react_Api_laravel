@@ -1,8 +1,9 @@
 import React from 'react'
 import { useState,useContext} from 'react'
 import CatagoryContext from './context/CatagoryContext';
-import axois from 'axois' 
-export default function LoginHooks() {
+import axios from 'axios';
+
+export default function LoginHooks(){
     // const http=axois.create({
     //     baseURL:'http://127.0.0.1:8000/api/auth/login',
     //     headers:{
@@ -43,9 +44,7 @@ export default function LoginHooks() {
   })
  localStorage.setItem('token',JSON.stringify(token));
 
-}
 
-    
 
   return (
     <div class="justify-center items-center py-3">
@@ -94,4 +93,5 @@ export default function LoginHooks() {
     
   </div>
   )
+}
 }

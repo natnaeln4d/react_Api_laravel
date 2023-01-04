@@ -31,7 +31,7 @@ export default function RegsterHook() {
     }
   
     const handleSubmit=async()=>{
-       
+        // localStorage.setItem('nameNN',name)
        try{
         const response=await axios.post('http://127.0.0.1:8000/api/auth/register',{
             name:name,
@@ -39,13 +39,14 @@ export default function RegsterHook() {
             password:password,
 
         });
-        const { token } = response.data.token;
-            localStorage.setItem('token', JSON.stringify(token));
+       
+        const { token } = response.token;
+            window.localStorage.setItem('token', JSON.stringify(token));
             dispatchauth({type: 'LOG'})
-            console.log(response.data.token)
+            console.log(response.token)
 
-        // localStorage.setItem('token',JSON.stringify(response.token));
-        // localStorage.setItem('name',JSON.stringify(response.name));
+    //     // localStorage.setItem('token',JSON.stringify(response.token));
+    //     // localStorage.setItem('name',JSON.stringify(response.name));
        
         
            
@@ -54,7 +55,7 @@ export default function RegsterHook() {
        }catch(error){
         console.log(error)
        }
-    //    console.log(response.data)
+      
 
     }
    
