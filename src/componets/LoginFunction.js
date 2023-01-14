@@ -19,7 +19,7 @@
 //     })
 //     useEffect(()=>{
 //         getuser();
-        
+// /sanctum/csrf-cookie
 //     },[])
 //     async function getuser(){
 //         const csrf=await http.get('/sanctum/csrf-cookie');

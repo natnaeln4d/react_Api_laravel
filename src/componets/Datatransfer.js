@@ -2,11 +2,15 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import axios from 'axios'
 import NarBar from './NarBar'
+import { authHeader } from './authHeader'
 
 export default class Datatransfer extends Component {
+   
     constructor (props) {
         super(props)
         this.state = {
+            user: {},
+            users: [],
           title: '',
          discription: '',
          Error:null
@@ -23,10 +27,28 @@ export default class Datatransfer extends Component {
         }
       
         onSubmitButton=async(e)=> {
+            let user = JSON.parse(localStorage.getItem("token"));
             e.preventDefault();
+            this.setState({
+                user:JSON.parse(localStorage.getItem("loged_in_status")),
+                users: { loading: true }
+                
+            })
             console.log(this.state.title);
                 try{
-                    const response= await axios.post('http://127.0.0.1:8000/api/post',{title: this.state.title,
+                    const http=axios.create({
+                        baseURL:'localhost:8000.my-app.test',
+                        headers:{
+                            'X-Requested-with':'XMLHttpRequest',
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                           ' Authorization': `Bearer ${user}`
+                            
+                            
+                        },
+                        withCredentials:true,
+                       })
+                    const response= await http.post('http://127.0.0.1:8000/api/post',{title: this.state.title,
                     discription: this.state.discription})
                     console.log(response)
                 }
@@ -92,9 +114,9 @@ export default class Datatransfer extends Component {
 // //   </div>
 <div>
     <NarBar />
- <div className="justify-center items-center py-3">
+ <div className="items-center justify-center py-3">
 {Error &&<div>{this.state.Error}</div>}
-<div className="w-full item-center justify-center">
+<div className="justify-center w-full item-center">
     <div className="col-md-8">
         <div className="card">
             <div className="card-header">Example Component</div>
@@ -102,10 +124,10 @@ export default class Datatransfer extends Component {
             <div className="card-body">
                 <form className='w-full max-w-[70rem]' onSubmit={this.onSubmitButton}>
                     <strong>Name:</strong>
-                    <input type="text"  className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-teal-500" name="title" value={this.state.title} onChange={this.onChangeValue} />
+                    <input type="text"  className="w-full px-4 py-2 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-teal-500" name="title" value={this.state.title} onChange={this.onChangeValue} />
                     <strong>Description:</strong>
-                    <textarea className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-teal-500" name="discription" value={this.state.discription} onChange={this.onChangeValue}></textarea>
-                    <button className="shadow  bg-teal-500 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 roundeds">Submit</button>
+                    <textarea className="w-full px-4 py-2 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-teal-500" name="discription" value={this.state.discription} onChange={this.onChangeValue}></textarea>
+                    <button className="px-4 py-2 font-bold text-white bg-teal-500 shadow hover:bg-teal-400 focus:shadow-outline focus:outline-none roundeds">Submit</button>
                 </form>
             </div>
         </div>

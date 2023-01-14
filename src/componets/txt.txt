@@ -198,3 +198,24 @@ export default function LoginHooks(){
     );
 
 }
+    const config = useRuntimeConfig()
+  const tokenResponse = await fetch(config.baseURL + '/sanctum/csrf-cookie', {
+    method: 'GET',
+    credentials: 'include'
+  })
+  const token = getCookie('XSRF-TOKEN')
+  console.log(token)
+  const loginResponse = await fetch(config.baseURL + 'http://127.0.0.1:8000/api/auth/login', {
+    method: 'POST',
+    headers: {
+      'X-XSRF-TOKEN': token,
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: {
+      "username": email,
+      "password": password
+    }
+  })
+ localStorage.setItem('token',JSON.stringify(token));
+ 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import Dropdown from './Dropdown'
 
 export default class NarBar extends Component {
@@ -17,15 +18,19 @@ export default class NarBar extends Component {
   </div>
   <div className="flex-grow block w-full lg:flex lg:items-center lg:w-auto">
     <div className="text-sm lg:flex-grow">
-      <a href="#responsive-header" className="block mt-4 mr-4 text-teal-200 lg:inline-block lg:mt-0 hover:text-white">
-        Home
-      </a>
-      <a href="#responsive-header" className="block mt-4 mr-4 text-teal-200 lg:inline-block lg:mt-0 hover:text-white">
-        About
-      </a>
-      <a href="#responsive-header" className="block mt-4 text-teal-200 lg:inline-block lg:mt-0 hover:text-white">
-        Blog
-      </a>
+      {/* <a href="#responsive-header" className="block mt-4 mr-4 text-teal-200 lg:inline-block lg:mt-0 hover:text-white"> */}
+      <Link to="/" className="block mt-4 mr-4 text-teal-200 lg:inline-block lg:mt-0 hover:text-white">  Home</Link>
+
+      
+      {/* </a> */}
+      {/* <a href="#responsive-header" className="block mt-4 mr-4 text-teal-200 lg:inline-block lg:mt-0 hover:text-white"> */}
+      <Link to="registerhook" className="block mt-4 mr-4 text-teal-200 lg:inline-block lg:mt-0 hover:text-white"> Register</Link>
+      
+      {/* </a> */}
+      {/* <a href="#responsive-header" className="block mt-4 text-teal-200 lg:inline-block lg:mt-0 hover:text-white"> */}
+        {/* Blog */}
+        <Link to="/hookfetch" className="block mt-4 text-teal-200 lg:inline-block lg:mt-0 hover:text-white">Datafetch</Link>
+      {/* </a> */}
     </div>
     <div>
     <Dropdown />

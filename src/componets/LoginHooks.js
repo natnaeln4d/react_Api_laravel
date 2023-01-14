@@ -3,14 +3,17 @@ import { useState,useContext} from 'react'
 import CatagoryContext from './context/CatagoryContext';
 import axios from 'axios';
 
-export default function LoginHooks(){
-    // const http=axois.create({
-    //     baseURL:'http://127.0.0.1:8000/api/auth/login',
-    //     headers:{
-    //         'X-Requested-with':'XMLHttpRequest',
-    //     },
-    //     withCredentials:true,
-    // })
+export default function LoginHooks() {
+  
+    const http=axios.create({
+      baseURL:'localhost:8000.my-app.test',
+      headers:{
+          'X-Requested-with':'XMLHttpRequest',
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+      },
+      withCredentials:true,
+  })
     const dispatch=useContext(CatagoryContext)
     const [email,setEmail]=useState('');
     const [password,setPassword]=useState('')
@@ -23,26 +26,22 @@ export default function LoginHooks(){
 
     }
     const handleSubmit=async()=>{
-        const config = useRuntimeConfig()
-  const tokenResponse = await fetch(config.baseURL + '/sanctum/csrf-cookie', {
-    method: 'GET',
-    credentials: 'include'
-  })
-  const token = getCookie('XSRF-TOKEN')
-  console.log(token)
-  const loginResponse = await fetch(config.baseURL + 'http://127.0.0.1:8000/api/auth/login', {
-    method: 'POST',
-    headers: {
-      'X-XSRF-TOKEN': token,
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: {
-      "username": email,
-      "password": password
+      try{
+        // axios.get('/sanctum/csrf-cookie');
+        const response=await axios.post('http://127.0.0.1:8000/api/auth/login',{
+          email:email,
+          password:password
+        })
+        console.log(response)
+        
+
+      
+
+      }
+      catch(error){
+        console.log(error)
+      }
     }
-  })
- localStorage.setItem('token',JSON.stringify(token));
 
 
 
@@ -59,7 +58,7 @@ export default function LoginHooks(){
   </label>
 </div>
 <div class="md:w-1/3">
-<input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-teal-500" id="inline-password" type="text" value={email} onChange={handleEmailChange} placeholder="Enter your email"/>
+<input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-teal-500"  type="text" value={email} onChange={handleEmailChange} placeholder="Enter your email"/>
 </div>
 </div>
 <div class="md:flex md:items-center mb-4">
@@ -69,7 +68,7 @@ export default function LoginHooks(){
   </label>
 </div>
 <div class="md:w-1/3">
-  <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-teal-500" id="inline-password" type="password" value={password} onChange={handlePasswordChange} placeholder="******************"/>
+  <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-teal-500"  type="password" value={password} onChange={handlePasswordChange} placeholder="******************"/>
 </div>
 </div>
 <div class="md:flex md:items-center mb-6">
@@ -84,7 +83,7 @@ export default function LoginHooks(){
 <div class="md:flex md:items-center">
 <div class="md:w-1/3"></div>
 <div class="md:w-2/3">
-  <button class="shadow  bg-teal-500 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
+  <button class="shadow  bg-teal-500 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
     Regter
   </button>
 </div>
@@ -93,5 +92,4 @@ export default function LoginHooks(){
     
   </div>
   )
-}
 }
