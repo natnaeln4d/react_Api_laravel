@@ -17,6 +17,8 @@ import {
 } from "react-router-dom";
 import {BrowserRouter as Router} from 'react-router-dom';
 import HooksDatafecth from './componets/HooksDatafecth';
+import Datafecth from './componets/Datafecth';
+import Forgetpassword from './Forgetpassword';
 // const router = createBrowserRouter(
 // [
 //   {
@@ -48,7 +50,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Route path='/' element={<TheApp />} />
     <Route path='/datatransfer' element={<DataTransfer />} />
     <Route path='/hookfetch'  element={<HooksDatafecth />} />
+    <Route path='/datafecth' element={<Datafecth />} />
     <Route path='/registerhook' element={<RegsterHook />} />
+    <Route path='/forgotpassword' element={<Forgetpassword />} />
   </Routes>
   
  </Router>

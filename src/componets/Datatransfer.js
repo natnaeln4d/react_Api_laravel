@@ -28,6 +28,9 @@ export default class Datatransfer extends Component {
       
         onSubmitButton=async(e)=> {
             let user = JSON.parse(localStorage.getItem("token"));
+            if(!user){
+                console.log("unauthorithed user")
+              }
             e.preventDefault();
             this.setState({
                 user:JSON.parse(localStorage.getItem("loged_in_status")),
@@ -48,6 +51,9 @@ export default class Datatransfer extends Component {
                         },
                         withCredentials:true,
                        })
+                       if(!user){
+                        console.log("unauthorithed user")
+                      }
                     const response= await http.post('http://127.0.0.1:8000/api/post',{title: this.state.title,
                     discription: this.state.discription})
                     console.log(response)

@@ -9,17 +9,35 @@ export default class Datafecth extends Component {
        error:null,
        IsLoaded:false,
        items:[],
+       user: {},
+       users: []
     }
   }
   
   handlebtn=()=>{
+    let user = JSON.parse(localStorage.getItem("token"));
+    if(!user){
+      console.log("unauthorithed user")
+    }
+    const http=axios.create({
+      baseURL:'localhost:8000.my-app.test',
+      headers:{
+          'X-Requested-with':'XMLHttpRequest',
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+         ' Authorization': `Bearer ${user}`
+          
+          
+      },
+      withCredentials:true,
+     })
   
-  axios.get('http://127.0.0.1:8000/api/post').then((res)=>{
-      res.json();
-    }).then((res)=>{
+  http.get('http://127.0.0.1:8000/api/post').then((res)=>{
       this.setState({
         IsLoaded:true,
-        items:res.data
+        items:res.data,
+        user:JSON.parse(localStorage.getItem("loged_in_status")),
+        users: { loading: true }
       },(error)=>{
         this.setState({
           IsLoaded:false,

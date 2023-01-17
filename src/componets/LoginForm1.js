@@ -50,7 +50,7 @@ export default function LoginForm1() {
         // dispatch('TYPE',true)
         if (response.data.message === "user logined succesfully") {
             localStorage.setItem("logged_in_status", JSON.stringify(true)); // <-- set localStorage
-            navigate('/datatransfer', { replace: true }); 
+            navigate('/hookfetch', { replace: true }); 
           }
        
 
@@ -96,10 +96,11 @@ export default function LoginForm1() {
 <div class="md:flex md:items-center mb-6">
 <div class="md:w-1/3"></div>
 <label class="md:w-2/3 block text-gray-500 font-bold">
-  <input class="mr-2 leading-tight" type="checkbox"/>
+  <Link to='/forgotpassword'>
   <span class="text-sm">
-    Send me your newsletter!
+    forgot password
   </span>
+  </Link>
 </label>
 </div>
 <div class="md:flex md:items-center">

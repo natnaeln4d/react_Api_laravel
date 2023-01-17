@@ -24,13 +24,14 @@ export default class NarBar extends Component {
       
       {/* </a> */}
       {/* <a href="#responsive-header" className="block mt-4 mr-4 text-teal-200 lg:inline-block lg:mt-0 hover:text-white"> */}
-      <Link to="registerhook" className="block mt-4 mr-4 text-teal-200 lg:inline-block lg:mt-0 hover:text-white"> Register</Link>
+      <Link to="/registerhook" className="block mt-4 mr-4 text-teal-200 lg:inline-block lg:mt-0 hover:text-white"> Register</Link>
       
       {/* </a> */}
       {/* <a href="#responsive-header" className="block mt-4 text-teal-200 lg:inline-block lg:mt-0 hover:text-white"> */}
         {/* Blog */}
-        <Link to="/hookfetch" className="block mt-4 text-teal-200 lg:inline-block lg:mt-0 hover:text-white">Datafetch</Link>
+        <Link to="/datatransfer" className="block mt-4 text-teal-200 lg:inline-block lg:mt-0 hover:text-white">Post</Link>
       {/* </a> */}
+      <Link to="/hookfetch" className="block mt-4 text-teal-200 lg:inline-block lg:mt-0 hover:text-white">Blog</Link>
     </div>
     <div>
     <Dropdown />

@@ -12,24 +12,30 @@ export default function HooksDatafecth() {
 
  useEffect(() => {
   let user = JSON.parse(localStorage.getItem("token"));
-  
     const http=axios.create({
-      baseURL:'localhost:8000.my-app.test',
       headers:{
-          'X-Requested-with':'XMLHttpRequest',
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-         ' Authorization': `Bearer ${user}`
-          
-          
-      },
-      withCredentials:true,
+        'X-Requested-with':'XMLHttpRequest',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+       ' Authorization': `Bearer ${user}`
+    },
+    withCredentials:true,
     })
-  
+    // const url = "http://127.0.0.1:8000/api/post";
+
     const fetchData = async () => {
-      if(user){
       try {
-        const response = await http.get('http://127.0.0.1:8000/api/post');
+        
+        if(!user){
+          console.log("unauthorithed user")
+        }
+        const response = await fetch("http://127.0.0.1:8000/api/post",{
+          method:"GET",
+          headers:{
+            'content-Type':'application/json',
+            "Authorization":`Bearer ${user}`
+          }
+        })
         const json = await response.json();
         console.log(json)
         setIsloaded({
@@ -39,11 +45,8 @@ export default function HooksDatafecth() {
         console.log(json);
       } catch (error) {
         console.log("error", error);
-      
-    }
-  }
-  
-  };
+      }
+    };
 
     fetchData();
 }, []);
@@ -73,7 +76,6 @@ export default function HooksDatafecth() {
           </div>
         );
       }
-    
     }
 
 
