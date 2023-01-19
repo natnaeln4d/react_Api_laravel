@@ -12,15 +12,7 @@ export default function HooksDatafecth() {
 
  useEffect(() => {
   let user = JSON.parse(localStorage.getItem("token"));
-    const http=axios.create({
-      headers:{
-        'X-Requested-with':'XMLHttpRequest',
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-       ' Authorization': `Bearer ${user}`
-    },
-    withCredentials:true,
-    })
+  
     // const url = "http://127.0.0.1:8000/api/post";
 
     const fetchData = async () => {
@@ -38,6 +30,13 @@ export default function HooksDatafecth() {
         })
         const json = await response.json();
         console.log(json)
+        let x=9
+        if (x===10) {
+          console.log(true)
+        }
+        else{
+          console.log(false)
+        }
         setIsloaded({
             isLoaded:json.status
         })
