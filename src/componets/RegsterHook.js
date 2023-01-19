@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useContext } from 'react'
 import { useState } from 'react'
-import { Navigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 // import { MdLock } from 'react-icons/md'
 // import { Link } from 'react-router-dom'
 import CatagoryContext from './context/CatagoryContext';
@@ -14,6 +14,7 @@ export default function RegsterHook() {
     const [email,setEmail]=useState('')
     const [password,setPassword]=useState('')
     const [confrimPassword,setConfrimpassword]=useState('')
+    const navigate=useNavigate()
     // const dataset=useState(null)
     
     // const [confrimPassword,setConfrimpassword]=useState('')
@@ -35,8 +36,11 @@ export default function RegsterHook() {
         setConfrimpassword(e.target.value)
     }
   
-    const handleSubmit=async()=>{
+    const handleSubmit=async(e)=>{
+        e.preventDefault()
         // localStorage.setItem('nameNN',name)
+        console.log(password)
+        console.log(confrimPassword)
         if(password===confrimPassword){
        try{
         const response=await axios.post('http://127.0.0.1:8000/api/auth/register',{
@@ -45,24 +49,25 @@ export default function RegsterHook() {
             password:password,
 
         });
-       
-        const { token } = response.token;
-            window.localStorage.setItem('token', JSON.stringify(token));
-            dispatchauth({type: 'LOG'})
-            console.log(response.token)
-
-    //     // localStorage.setItem('token',JSON.stringify(response.token));
-    //     // localStorage.setItem('name',JSON.stringify(response.name));
-       
         
+        const  token = response.data.token;
+        const message=response.data.message
+     localStorage.setItem('token', JSON.stringify(token));
+     if(message==="user created succesfully"){
+        navigate('/hookfetch', { replace: true }); 
+        console.log("registered")
+     }
            
-        
+            console.log(response.data.token)
 
        }catch(error){
         console.log(error)
        }
     }
-    console.log("password don't match");
+    else{
+        console.log("password don't match");
+    }
+    
       
 
     }
