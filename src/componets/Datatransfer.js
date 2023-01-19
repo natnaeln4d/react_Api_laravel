@@ -51,9 +51,7 @@ export default class Datatransfer extends Component {
                         },
                         withCredentials:true,
                        })
-                       if(!user){
-                        console.log("unauthorithed user")
-                      }
+                       
                     const response= await http.post('http://127.0.0.1:8000/api/post',{title: this.state.title,
                     discription: this.state.discription})
                     console.log(response)
