@@ -57,26 +57,40 @@
 import axios from 'axios';
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
-import { useState,useEffect } from 'react';
+import { useState} from 'react';
 
 
 export default function Dropdown() {
-const [check,setCheck]=useState(false);
+let check=false
+const navigate=useNavigate();
 
-  const http=axios.create({
-    baseURL:'localhost:8000.my-app.test',
-    headers:{
-        'X-Requested-with':'XMLHttpRequest',
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-    },
-    withCredentials:true,
-});
+
+//   const http=axios.create({
+//     baseURL:'localhost:8000.my-app.test',
+//     headers:{
+//         'X-Requested-with':'XMLHttpRequest',
+//         'Accept': 'application/json',
+//         'Content-Type': 'application/json'
+//     },
+//     withCredentials:true,
+// });
 
 const handlesubmit=(e)=>{
   e.preventDefault()
   localStorage.removeItem("token");
-  setCheck({check:true})
+  // navigate('/',{replace:true});
+  check=true
+  if(check){
+    navigate('/',{replace:true});
+ 
+    console.log(check)
+    
+  }
+  else{
+    console.log("can't logout")
+  }
+  
+
   
 
     
