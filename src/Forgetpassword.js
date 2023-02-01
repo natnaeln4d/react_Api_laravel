@@ -4,7 +4,7 @@ import { useState,useEffect } from 'react'
 import NarBar from './componets/NarBar'
 
 export default function Forgetpassword() {
-    const {email,setEmail}=useState('');
+    const[email,setEmail]=useState('');
     const http=axios.create({
         baseURL:'localhost:8000.my-app.test',
         headers:{
@@ -19,11 +19,12 @@ export default function Forgetpassword() {
    }
    const handleSubmit=async(e)=>{
     e.preventDefault();
-      const response=await http.post('http://127.0.0.1:8000/api/auth/foregotpassword',{
+   
+   const response=await http.post('http://127.0.0.1:8000/api/auth/foregotpassword',{
         email:email
       });
-      const json=response.json();
-      console.log(json);
+      console.log(response) 
+
 
    }
   return (

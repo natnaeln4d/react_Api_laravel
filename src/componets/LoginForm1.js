@@ -36,7 +36,7 @@ export default function LoginForm1() {
     }
     const handleSubmit=async(e)=>{
       e.preventDefault()
-      console.log(e.target.email)
+    
       try{
         // const jwt= await axios.get('/sanctum/csrf-cookie');
         const response=await http.post('http://127.0.0.1:8000/api/auth/login',{

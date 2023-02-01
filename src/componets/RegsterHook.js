@@ -43,6 +43,7 @@ export default function RegsterHook() {
         console.log(confrimPassword)
         if(password===confrimPassword){
        try{
+        
         const response=await axios.post('http://127.0.0.1:8000/api/auth/register',{
             name:name,
             email:email,

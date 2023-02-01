@@ -30,13 +30,7 @@ export default function HooksDatafecth() {
         })
         const json = await response.json();
         console.log(json)
-        let x=9
-        if (x===10) {
-          console.log(true)
-        }
-        else{
-          console.log(false)
-        }
+      
         setIsloaded({
             isLoaded:json.status
         })
